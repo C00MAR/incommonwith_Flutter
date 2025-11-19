@@ -7,12 +7,15 @@ import '../presentation/pages/product_detail_page.dart';
 import '../presentation/pages/cart_page.dart';
 import '../presentation/pages/checkout_page.dart';
 import '../presentation/pages/orders_page.dart';
+import '../presentation/viewmodels/auth_viewmodel.dart';
 import 'guards.dart';
 
-final goRouter = GoRouter(
-  initialLocation: '/home',
-  redirect: AuthGuard.redirect,
-  routes: [
+GoRouter createRouter(AuthViewModel authViewModel) {
+  return GoRouter(
+    initialLocation: '/home',
+    redirect: AuthGuard.redirect,
+    refreshListenable: authViewModel,
+    routes: [
     GoRoute(
       path: '/login',
       builder: (context, state) => const LoginPage(),
@@ -50,4 +53,5 @@ final goRouter = GoRouter(
       child: Text('Page non trouvee: ${state.uri}'),
     ),
   ),
-);
+  );
+}

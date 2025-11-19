@@ -8,6 +8,12 @@ class AuthViewModel extends BaseViewModel {
   bool get isAuthenticated => currentUser != null;
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
+  AuthViewModel() {
+    _auth.authStateChanges().listen((User? user) {
+      notifyListeners();
+    });
+  }
+
   Future<void> signInWithEmail(String email, String password) async {
     setLoading(true);
     clearError();
@@ -71,6 +77,7 @@ class AuthViewModel extends BaseViewModel {
   Future<void> signOut() async {
     try {
       await _auth.signOut();
+      notifyListeners();
     } catch (e) {
       setError('Erreur lors de la déconnexion : $e');
     }

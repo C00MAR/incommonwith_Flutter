@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../viewmodels/auth_viewmodel.dart';
+import '../viewmodels/cart_viewmodel.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,6 +10,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authViewModel = Provider.of<AuthViewModel>(context);
+    final cartViewModel = Provider.of<CartViewModel>(context, listen: false);
     final user = authViewModel.currentUser;
 
     return Scaffold(
@@ -124,8 +126,9 @@ class HomePage extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: TextButton(
-                      onPressed: () {
-                        authViewModel.signOut();
+                      onPressed: () async {
+                        await cartViewModel.clearCart();
+                        await authViewModel.signOut();
                       },
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.white,
