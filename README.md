@@ -1,49 +1,29 @@
-# InCommonWith Flutter
+# ShopFlutter
 
-Application mobile e-commerce MVP développée avec Flutter.
+Application e-commerce en Flutter avec architecture MVVM.
 
-## Description
+## Features
+- Catalogue produits avec recherche/filtre
+- Panier avec gestion quantités
+- Checkout et historique commandes
+- Authentification Firebase
 
-InCommonWith est une application mobile e-commerce permettant aux utilisateurs de découvrir et acheter des produits. Cette version MVP se concentre sur les fonctionnalités essentielles pour valider le concept.
+## Architecture
+- MVVM (Model-View-ViewModel)
+- Provider pour state management
+- go_router pour la navigation
+- Repository pattern
 
-## Prérequis
-
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) (version stable recommandée)
-- [Dart SDK](https://dart.dev/get-dart) (inclus avec Flutter)
-- [Firebase](https://firebase.google.com/) (pour l'authentification et le backend)
-- Un émulateur Android/iOS ou un appareil physique
-- Git
-
-## TODO: Instructions d'installation
-
+## Installation
 ```bash
-# Cloner le repository
-git clone <repository-url>
-cd incommonwith_flutter
-
-# Installer les dépendances
 flutter pub get
-
-# Lancer l'application
 flutter run
 ```
 
-## TODO: Configuration Firebase
+## Tests
+```bash
+flutter test --coverage
+```
 
-Instructions pour configurer Firebase seront ajoutées ici.
-
-## TODO: Structure du projet
-
-Documentation de l'architecture et de l'organisation du code sera ajoutée ici.
-
-## TODO: Scripts disponibles
-
-Liste des commandes et scripts utiles sera ajoutée ici.
-
-## TODO: Contribution
-
-Guidelines de contribution seront ajoutées ici.
-
-## Licence
-
-À définir
+## Déploiement
+URL: [À compléter]
