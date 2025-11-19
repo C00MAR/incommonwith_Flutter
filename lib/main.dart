@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'core/router.dart';
+import 'presentation/viewmodels/auth_viewmodel.dart';
+import 'presentation/viewmodels/catalog_viewmodel.dart';
+import 'presentation/viewmodels/cart_viewmodel.dart';
+import 'presentation/viewmodels/checkout_viewmodel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,16 +18,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'InCommonWith',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: const Scaffold(
-        body: Center(
-          child: Text('InCommonWith'),
-        ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => CatalogViewModel()),
+        ChangeNotifierProvider(create: (_) => CartViewModel()),
+        ChangeNotifierProvider(create: (_) => CheckoutViewModel()),
+      ],
+      child: MaterialApp.router(
+        title: 'ShopFlutter',
+        routerConfig: goRouter,
       ),
     );
   }
