@@ -1,16 +1,49 @@
-# incommonwith_flutter
+# InCommonWith Flutter
 
-A new Flutter project.
+Application mobile e-commerce MVP développée avec Flutter.
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
+InCommonWith est une application mobile e-commerce permettant aux utilisateurs de découvrir et acheter des produits. Cette version MVP se concentre sur les fonctionnalités essentielles pour valider le concept.
 
-A few resources to get you started if this is your first Flutter project:
+## Prérequis
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) (version stable recommandée)
+- [Dart SDK](https://dart.dev/get-dart) (inclus avec Flutter)
+- [Firebase](https://firebase.google.com/) (pour l'authentification et le backend)
+- Un émulateur Android/iOS ou un appareil physique
+- Git
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## TODO: Instructions d'installation
+
+```bash
+# Cloner le repository
+git clone <repository-url>
+cd incommonwith_flutter
+
+# Installer les dépendances
+flutter pub get
+
+# Lancer l'application
+flutter run
+```
+
+## TODO: Configuration Firebase
+
+Instructions pour configurer Firebase seront ajoutées ici.
+
+## TODO: Structure du projet
+
+Documentation de l'architecture et de l'organisation du code sera ajoutée ici.
+
+## TODO: Scripts disponibles
+
+Liste des commandes et scripts utiles sera ajoutée ici.
+
+## TODO: Contribution
+
+Guidelines de contribution seront ajoutées ici.
+
+## Licence
+
+À définir
