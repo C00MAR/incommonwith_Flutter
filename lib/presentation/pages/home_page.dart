@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authViewModel = Provider.of<AuthViewModel>(context);
-    final cartViewModel = Provider.of<CartViewModel>(context, listen: false);
+    final cartViewModel = Provider.of<CartViewModel>(context);
     final user = authViewModel.currentUser;
 
     return Scaffold(
@@ -37,16 +37,16 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       _TopBox(
-                        label: '0',
+                        label: '${cartViewModel.itemsCount}',
                         onTap: () {
-                          // TODO: action pour le "0" (ex : panier)
+                          context.push('/cart');
                         },
                       ),
                       const SizedBox(width: 8),
                       _TopBox(
                         label: 'Menu',
                         onTap: () {
-                          // TODO: ouvrir un menu latéral ou autre
+                          _showMenu(context, authViewModel, cartViewModel);
                         },
                       ),
                     ],
@@ -120,27 +120,83 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
-
-                  /// Bouton logout discret (optionnel, pour garder la feature)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
-                      onPressed: () async {
-                        await cartViewModel.clearCart();
-                        await authViewModel.signOut();
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.white,
-                      ),
-                      child: const Text('Se déconnecter'),
-                    ),
-                  ),
                 ],
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showMenu(BuildContext context, AuthViewModel authViewModel, CartViewModel cartViewModel) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Accueil'),
+              onTap: () {
+                Navigator.pop(context);
+                context.go('/home');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.shopping_bag),
+              title: const Text('Catalogue'),
+              onTap: () {
+                Navigator.pop(context);
+                context.push('/catalog');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.shopping_cart),
+              title: const Text('Panier'),
+              trailing: cartViewModel.itemsCount > 0
+                  ? CircleAvatar(
+                      radius: 12,
+                      child: Text(
+                        '${cartViewModel.itemsCount}',
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    )
+                  : null,
+              onTap: () {
+                Navigator.pop(context);
+                context.push('/cart');
+              },
+            ),
+            if (authViewModel.isAuthenticated) ...[
+              ListTile(
+                leading: const Icon(Icons.receipt_long),
+                title: const Text('Mes commandes'),
+                onTap: () {
+                  Navigator.pop(context);
+                  context.push('/orders');
+                },
+              ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.logout, color: Colors.red),
+                title: const Text('Se déconnecter', style: TextStyle(color: Colors.red)),
+                onTap: () async {
+                  Navigator.pop(context);
+                  await cartViewModel.clearCart();
+                  await authViewModel.signOut();
+                },
+              ),
+            ],
+            const SizedBox(height: 16),
+          ],
+        ),
       ),
     );
   }
