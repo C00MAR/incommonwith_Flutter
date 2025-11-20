@@ -75,13 +75,19 @@ class _AppMenuDrawerState extends State<AppMenuDrawer> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'In Common With',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-              letterSpacing: 0.5,
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+              context.go('/home');
+            },
+            child: const Text(
+              'In Common With',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.5,
+              ),
             ),
           ),
           Row(
