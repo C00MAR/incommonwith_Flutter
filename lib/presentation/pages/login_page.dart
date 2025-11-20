@@ -232,7 +232,7 @@ class _LoginPageState extends State<LoginPage> {
               style: TextStyle(
                 color: Color(0xFF4A1D0F),
                 fontSize: 20,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w700,
                 letterSpacing: 0.5,
               ),
             ),

@@ -132,7 +132,6 @@ class _CatalogPageState extends State<CatalogPage> {
                       ),
                     ),
 
-                  /// Espacement en bas
                   const SliverToBoxAdapter(
                     child: SizedBox(height: 32),
                   ),
@@ -158,7 +157,7 @@ class _CatalogPageState extends State<CatalogPage> {
               style: TextStyle(
                 color: Color(0xFF4A1D0F),
                 fontSize: 20,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w700,
                 letterSpacing: 0.5,
               ),
             ),
@@ -235,7 +234,6 @@ class _CatalogPageState extends State<CatalogPage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// Colonne Categories
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,7 +274,6 @@ class _CatalogPageState extends State<CatalogPage> {
 
           const SizedBox(width: 48),
 
-          /// Colonne Search
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -347,7 +344,6 @@ class _CatalogPageState extends State<CatalogPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// Image du produit
           Expanded(
             child: Container(
               decoration: BoxDecoration(
@@ -379,7 +375,6 @@ class _CatalogPageState extends State<CatalogPage> {
           ),
           const SizedBox(height: 12),
 
-          /// Titre du produit
           Text(
             product.title,
             style: const TextStyle(
@@ -392,7 +387,6 @@ class _CatalogPageState extends State<CatalogPage> {
           ),
           const SizedBox(height: 4),
 
-          /// Prix
           Text(
             product.formattedPrice,
             style: const TextStyle(

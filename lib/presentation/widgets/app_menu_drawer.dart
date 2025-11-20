@@ -43,13 +43,11 @@ class _AppMenuDrawerState extends State<AppMenuDrawer> {
                         });
                       },
                       children: [
-                        // Afficher "All Products" en premier
                         _buildMenuItem('All Products', () {
                           catalogViewModel.filterByCategory('');
                           context.push('/catalog');
                           Navigator.pop(context);
                         }),
-                        // Afficher dynamiquement toutes les catégories
                         ...catalogViewModel.categories.map((category) {
                           return _buildMenuItem(category, () {
                             catalogViewModel.filterByCategory(category);
@@ -89,7 +87,7 @@ class _AppMenuDrawerState extends State<AppMenuDrawer> {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w700,
                 letterSpacing: 0.5,
               ),
             ),
