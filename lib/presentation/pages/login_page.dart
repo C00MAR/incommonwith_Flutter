@@ -33,16 +33,13 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Column(
           children: [
-            /// Header avec compteur et menu
             _buildHeader(context, cartViewModel),
 
-            /// Ligne de séparation
             Container(
               height: 1,
               color: Colors.black.withValues(alpha: 0.1),
             ),
 
-            /// Contenu scrollable
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -50,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      /// Titre Account
                       const Text(
                         'Account',
                         style: TextStyle(
@@ -61,7 +57,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 32),
 
-                      /// Texte explicatif
                       const Text(
                         'Log in to check order status, order history, and make checking out faster. No account? Sign up below.',
                         style: TextStyle(
@@ -72,12 +67,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 32),
 
-                      /// Formulaire
                       Consumer<AuthViewModel>(
                         builder: (context, authViewModel, _) {
                           return Column(
                             children: [
-                              /// Champ Email
                               _buildTextField(
                                 controller: _emailController,
                                 label: 'Email',
@@ -86,7 +79,6 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               const SizedBox(height: 16),
 
-                              /// Champ Password
                               _buildTextField(
                                 controller: _passwordController,
                                 label: 'Password',
@@ -106,7 +98,6 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               const SizedBox(height: 24),
 
-                              /// Message d'erreur
                               if (authViewModel.hasError)
                                 Container(
                                   padding: const EdgeInsets.all(12),
@@ -125,7 +116,6 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
 
-                              /// Bouton Sign In
                               SizedBox(
                                 width: double.infinity,
                                 height: 50,
@@ -169,7 +159,6 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               const SizedBox(height: 16),
 
-                              /// Bouton Create Account
                               SizedBox(
                                 width: double.infinity,
                                 height: 50,

@@ -44,7 +44,12 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Environment variables
+.env
+.env.local
+.env.*.local
+
 # Firebase configuration files (sensitive - do not commit)
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
-**/firebase_options.dart
+ios/Runner/Info.plist

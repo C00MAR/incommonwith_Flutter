@@ -82,7 +82,6 @@ class _CatalogPageState extends State<CatalogPage> {
                     ),
                   ),
 
-                  /// Grille de produits
                   if (catalogViewModel.isLoading)
                     const SliverFillRemaining(
                       child: Center(
