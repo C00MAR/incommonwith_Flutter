@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../viewmodels/catalog_viewmodel.dart';
 import '../viewmodels/cart_viewmodel.dart';
 import '../widgets/app_menu_drawer.dart';
+import '../widgets/pwa_install_button.dart';
 
 class CatalogPage extends StatefulWidget {
   const CatalogPage({super.key});
@@ -168,6 +169,7 @@ class _CatalogPageState extends State<CatalogPage> {
                 '${cartViewModel.itemsCount}',
                 () => context.push('/cart'),
               ),
+              const PWAInstallButton(),
               const SizedBox(width: 8),
               _buildHeaderButton(
                 'Menu',
