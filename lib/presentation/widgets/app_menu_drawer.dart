@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../viewmodels/auth_viewmodel.dart';
 import '../viewmodels/cart_viewmodel.dart';
+import '../viewmodels/catalog_viewmodel.dart';
 
 class AppMenuDrawer extends StatefulWidget {
   const AppMenuDrawer({super.key});
@@ -12,12 +13,13 @@ class AppMenuDrawer extends StatefulWidget {
 }
 
 class _AppMenuDrawerState extends State<AppMenuDrawer> {
-  bool _lightingExpanded = false;
+  bool _productExpanded = false;
 
   @override
   Widget build(BuildContext context) {
     final authViewModel = Provider.of<AuthViewModel>(context);
     final cartViewModel = Provider.of<CartViewModel>(context);
+    final catalogViewModel = Provider.of<CatalogViewModel>(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFF4A1D0F),
@@ -33,25 +35,27 @@ class _AppMenuDrawerState extends State<AppMenuDrawer> {
                     const SizedBox(height: 24),
 
                     _buildExpandableSection(
-                      title: 'Lighting',
-                      isExpanded: _lightingExpanded,
+                      title: 'Product',
+                      isExpanded: _productExpanded,
                       onTap: () {
                         setState(() {
-                          _lightingExpanded = !_lightingExpanded;
+                          _productExpanded = !_productExpanded;
                         });
                       },
                       children: [
-                        _buildMenuItem('Pendant Lights', () {
+                        // Afficher "All Products" en premier
+                        _buildMenuItem('All Products', () {
+                          catalogViewModel.filterByCategory('');
                           context.push('/catalog');
                           Navigator.pop(context);
                         }),
-                        _buildMenuItem('Table Lamps', () {
-                          context.push('/catalog');
-                          Navigator.pop(context);
-                        }),
-                        _buildMenuItem('Wall Sconces', () {
-                          context.push('/catalog');
-                          Navigator.pop(context);
+                        // Afficher dynamiquement toutes les catégories
+                        ...catalogViewModel.categories.map((category) {
+                          return _buildMenuItem(category, () {
+                            catalogViewModel.filterByCategory(category);
+                            context.push('/catalog');
+                            Navigator.pop(context);
+                          });
                         }),
                       ],
                     ),
