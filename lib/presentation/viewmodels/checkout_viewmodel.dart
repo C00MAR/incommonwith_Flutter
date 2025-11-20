@@ -4,12 +4,13 @@ import '../../data/services/cache_service.dart';
 import 'base_viewmodel.dart';
 
 class CheckoutViewModel extends BaseViewModel {
-  final CacheService _cacheService = CacheService();
+  final CacheService _cacheService;
   List<Order> _orders = [];
 
   List<Order> get orders => _orders;
 
-  CheckoutViewModel() {
+  CheckoutViewModel({CacheService? cacheService})
+      : _cacheService = cacheService ?? CacheService() {
     loadOrders();
   }
 
