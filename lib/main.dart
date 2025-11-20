@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'firebase_options.dart';
 import 'core/router.dart';
 import 'presentation/viewmodels/auth_viewmodel.dart';
 import 'presentation/viewmodels/catalog_viewmodel.dart';
 import 'presentation/viewmodels/cart_viewmodel.dart';
 import 'presentation/viewmodels/checkout_viewmodel.dart';
 
+const firebaseOptions = FirebaseOptions(
+  apiKey: 'AIzaSyDdSnD66BJbRxJmmysBIkwTY9z7WcSjxSI',
+  appId: '1:83803930192:web:9feaf14d7659062294db55',
+  messagingSenderId: '83803930192',
+  projectId: 'incommonwith-flutter',
+  authDomain: 'incommonwith-flutter.firebaseapp.com',
+  storageBucket: 'incommonwith-flutter.firebasestorage.app',
+  measurementId: 'G-HL0C5FB4SQ',
+);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: firebaseOptions);
   runApp(const MyApp());
 }
 
