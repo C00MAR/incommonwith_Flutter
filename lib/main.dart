@@ -51,7 +51,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => CheckoutViewModel()),
       ],
       child: MaterialApp.router(
-        title: 'ShopFlutter',
+        title: 'InCommonWith',
+        theme: ThemeData(fontFamily: 'Mier'),
         routerConfig: _router,
       ),
     );

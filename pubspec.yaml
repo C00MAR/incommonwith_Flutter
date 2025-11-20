@@ -56,3 +56,16 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/fonts/
+  
+  fonts:
+    - family: Mier
+      fonts:
+        - asset: assets/fonts/MierFont/MierA-Light.ttf
+          weight: 200
+        - asset: assets/fonts/MierFont/MierA-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/MierFont/MierA-Bold.ttf
+          weight: 700
