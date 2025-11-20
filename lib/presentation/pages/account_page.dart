@@ -1,3 +1,6 @@
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +17,116 @@ class AccountPage extends StatelessWidget {
     final cartViewModel = Provider.of<CartViewModel>(context);
     final user = authViewModel.currentUser;
 
+    if (!kIsWeb && Platform.isIOS) {
+      return _buildIOSVersion(context, authViewModel, cartViewModel, user);
+    }
+
+    return _buildMaterialVersion(context, authViewModel, cartViewModel, user);
+  }
+
+  Widget _buildIOSVersion(BuildContext context, AuthViewModel authViewModel, CartViewModel cartViewModel, dynamic user) {
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: const Text('Profil'),
+        trailing: user != null
+            ? CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: const Icon(CupertinoIcons.arrow_right_square),
+                onPressed: () async {
+                  await cartViewModel.clearCart();
+                  await authViewModel.signOut();
+                  if (context.mounted) {
+                    context.go('/home');
+                  }
+                },
+              )
+            : null,
+      ),
+      child: SafeArea(
+        child: ListView(
+          children: [
+            const SizedBox(height: 20),
+            if (user != null) ...[
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: CupertinoColors.systemGrey5,
+                child: const Icon(CupertinoIcons.person, size: 50, color: Color(0xFF4A1D0F)),
+              ),
+              const SizedBox(height: 16),
+              Center(
+                child: Text(
+                  user.displayName ?? 'Name Placeholder',
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF4A1D0F),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Center(
+                child: Text(
+                  user.email ?? 'email@placeholder',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: CupertinoColors.systemGrey,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 32),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: CupertinoButton(
+                  color: const Color(0xFF4A1D0F),
+                  child: const Text('Orders'),
+                  onPressed: () => context.push('/orders'),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: CupertinoButton(
+                  child: const Text(
+                    'Sign Out',
+                    style: TextStyle(color: Color(0xFF4A1D0F)),
+                  ),
+                  onPressed: () async {
+                    await cartViewModel.clearCart();
+                    await authViewModel.signOut();
+                    if (context.mounted) {
+                      context.go('/home');
+                    }
+                  },
+                ),
+              ),
+            ] else ...[
+              const Padding(
+                padding: EdgeInsets.all(24.0),
+                child: Text(
+                  'Vous devez être connecté pour accéder à votre compte.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: CupertinoColors.systemGrey,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: CupertinoButton.filled(
+                  child: const Text('Se connecter'),
+                  onPressed: () => context.push('/login'),
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMaterialVersion(BuildContext context, AuthViewModel authViewModel, CartViewModel cartViewModel, dynamic user) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
