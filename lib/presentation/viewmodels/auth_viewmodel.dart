@@ -2,13 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'base_viewmodel.dart';
 
 class AuthViewModel extends BaseViewModel {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth;
 
   User? get currentUser => _auth.currentUser;
   bool get isAuthenticated => currentUser != null;
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
-  AuthViewModel() {
+  AuthViewModel({FirebaseAuth? auth}) : _auth = auth ?? FirebaseAuth.instance {
     _auth.authStateChanges().listen((User? user) {
       notifyListeners();
     });
