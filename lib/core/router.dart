@@ -7,6 +7,7 @@ import '../presentation/pages/product_detail_page.dart';
 import '../presentation/pages/cart_page.dart';
 import '../presentation/pages/checkout_page.dart';
 import '../presentation/pages/orders_page.dart';
+import '../presentation/pages/account_page.dart';
 import '../presentation/viewmodels/auth_viewmodel.dart';
 import 'guards.dart';
 
@@ -46,6 +47,10 @@ GoRouter createRouter(AuthViewModel authViewModel) {
     GoRoute(
       path: '/orders',
       builder: (context, state) => const OrdersPage(),
+    ),
+    GoRoute(
+      path: '/account',
+      builder: (context, state) => const AccountPage(),
     ),
   ],
   errorBuilder: (context, state) => Scaffold(
