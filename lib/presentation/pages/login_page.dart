@@ -193,6 +193,63 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                               ),
+                              const SizedBox(height: 32),
+
+                              Row(
+                                children: [
+                                  Expanded(child: Divider(color: Colors.grey.shade400)),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                                    child: Text(
+                                      'OR',
+                                      style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(child: Divider(color: Colors.grey.shade400)),
+                                ],
+                              ),
+                              const SizedBox(height: 32),
+
+                              SizedBox(
+                                width: double.infinity,
+                                height: 50,
+                                child: OutlinedButton.icon(
+                                  onPressed: authViewModel.isLoading
+                                      ? null
+                                      : () async {
+                                          await authViewModel.signInWithGoogle();
+                                          if (context.mounted && authViewModel.isAuthenticated) {
+                                            context.go('/home');
+                                          }
+                                        },
+                                  style: OutlinedButton.styleFrom(
+                                    foregroundColor: Colors.black87,
+                                    side: BorderSide(
+                                      color: Colors.grey.shade400,
+                                      width: 1,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0),
+                                    ),
+                                  ),
+                                  icon: Image.asset(
+                                    'assets/images/google.png',
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  label: const Text(
+                                    'Continue with Google',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           );
                         },

@@ -1,14 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'base_viewmodel.dart';
 
 class AuthViewModel extends BaseViewModel {
   final FirebaseAuth _auth;
+  final GoogleSignIn _googleSignIn;
 
   User? get currentUser => _auth.currentUser;
   bool get isAuthenticated => currentUser != null;
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
-  AuthViewModel({FirebaseAuth? auth}) : _auth = auth ?? FirebaseAuth.instance {
+  AuthViewModel({FirebaseAuth? auth, GoogleSignIn? googleSignIn})
+      : _auth = auth ?? FirebaseAuth.instance,
+        _googleSignIn = googleSignIn ?? GoogleSignIn() {
     _auth.authStateChanges().listen((User? user) {
       notifyListeners();
     });
@@ -74,8 +78,38 @@ class AuthViewModel extends BaseViewModel {
     }
   }
 
+  Future<void> signInWithGoogle() async {
+    setLoading(true);
+    clearError();
+
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      if (googleUser == null) {
+        setLoading(false);
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await _auth.signInWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      setError('Erreur de connexion Google : ${e.message}');
+    } catch (e) {
+      setError('Erreur inattendue : $e');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   Future<void> signOut() async {
     try {
+      await _googleSignIn.signOut();
       await _auth.signOut();
       notifyListeners();
     } catch (e) {

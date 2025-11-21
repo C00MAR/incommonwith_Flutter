@@ -8,6 +8,15 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+dependencies {
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+    implementation 'com.google.firebase:firebase-auth'
+
+    // Google Sign-In
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+}
+
 android {
     namespace = "com.example.incommonwith_flutter"
     compileSdk = flutter.compileSdkVersion
@@ -45,3 +54,5 @@ android {
 flutter {
     source = "../.."
 }
+
+apply plugin: 'com.google.gms.google-services'
